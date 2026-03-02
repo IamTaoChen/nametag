@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.27.2](https://github.com/mattogodoy/nametag/compare/v0.27.1...v0.27.2) (2026-03-02)
+
+
+### Bug Fixes
+
+* use modal for editing user relationship instead of navigating to edit page ([bc86e30](https://github.com/mattogodoy/nametag/commit/bc86e3062a5e1c35800bdb0d28c470086241703d))
+
 ## [0.27.1](https://github.com/mattogodoy/nametag/compare/v0.27.0...v0.27.1) (2026-03-02)
 
 
