@@ -477,6 +477,18 @@ export async function syncToServer(
             : mapping.person.surname || 'Unknown',
         });
 
+        // Clean up legacy "Unknown vCard Properties" from notes (issue #130)
+        if (mapping.person.notes?.includes('--- Unknown vCard Properties ---')) {
+          const cleanedNotes = mapping.person.notes
+            .replace(/\n?\n?--- Unknown vCard Properties ---[\s\S]*$/, '')
+            .trim() || null;
+          await prisma.person.update({
+            where: { id: mapping.person.id },
+            data: { notes: cleanedNotes },
+          });
+          mapping.person.notes = cleanedNotes;
+        }
+
         // Convert person to vCard
         const personWithAllRelations = {
           ...mapping.person,
