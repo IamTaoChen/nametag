@@ -77,10 +77,10 @@ describe('LastContactQuickUpdate', () => {
     );
 
     expect(screen.getByText(/last time you talked/i)).toBeInTheDocument();
-    expect(screen.getByText('—')).toBeInTheDocument();
+    expect(screen.getByText(/you haven't contacted this person yet/i)).toBeInTheDocument();
   });
 
-  it('always shows the "Contacted today" button', () => {
+  it('always shows the "Update to today" button', () => {
     const { rerender } = render(
       <Wrapper>
         <LastContactQuickUpdate
@@ -92,7 +92,7 @@ describe('LastContactQuickUpdate', () => {
     );
 
     // Button should be present when no date
-    expect(screen.getByTitle(/contacted today/i)).toBeInTheDocument();
+    expect(screen.getByTitle(/update to today/i)).toBeInTheDocument();
 
     // Button should also be present when date exists
     rerender(
@@ -105,7 +105,7 @@ describe('LastContactQuickUpdate', () => {
       </Wrapper>
     );
 
-    expect(screen.getByTitle(/contacted today/i)).toBeInTheDocument();
+    expect(screen.getByTitle(/update to today/i)).toBeInTheDocument();
   });
 
   it('calls PUT API with correct payload and shows success toast on click', async () => {
@@ -128,7 +128,7 @@ describe('LastContactQuickUpdate', () => {
       </Wrapper>
     );
 
-    const button = screen.getByTitle(/contacted today/i);
+    const button = screen.getByTitle(/update to today/i);
     await user.click(button);
 
     await waitFor(() => {
@@ -183,7 +183,7 @@ describe('LastContactQuickUpdate', () => {
       </Wrapper>
     );
 
-    const button = screen.getByTitle(/contacted today/i);
+    const button = screen.getByTitle(/update to today/i);
     await user.click(button);
 
     // Should show error toast
@@ -233,7 +233,7 @@ describe('LastContactQuickUpdate', () => {
       </Wrapper>
     );
 
-    const button = screen.getByTitle(/contacted today/i);
+    const button = screen.getByTitle(/update to today/i);
     await user.click(button);
 
     // Button should be disabled while loading

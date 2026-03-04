@@ -80,39 +80,41 @@ export default function LastContactQuickUpdate({
       <h4 className="text-sm font-medium text-muted mb-1">
         {t('lastTimeTalked')}
       </h4>
-      <p className="text-foreground">
-        {parsedDate ? (
-          <>
-            {formatDate(parsedDate, dateFormat)}{' '}
-            <span className="text-sm text-muted">
-              ({getRelativeTime(parsedDate, t)})
-            </span>
-          </>
-        ) : (
-          <span className="text-muted">{t('noContactRecorded')}</span>
-        )}
-      </p>
-      <button
-        type="button"
-        title={t('contactedToday')}
-        onClick={handleContactedToday}
-        disabled={isLoading}
-        className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full border border-border text-muted hover:text-primary hover:border-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {isLoading ? (
-          <svg className="w-3.5 h-3.5 animate-spin" fill="none" viewBox="0 0 24 24">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-          </svg>
-        ) : (
-          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <rect x="3" y="4" width="18" height="18" rx="2" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 2v4M8 2v4M3 10h18" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 16l2 2 4-4" />
-          </svg>
-        )}
-        {t('contactedToday')}
-      </button>
+      <div className="flex items-center gap-2">
+        <p className="text-foreground">
+          {parsedDate ? (
+            <>
+              {formatDate(parsedDate, dateFormat)}{' '}
+              <span className="text-sm text-muted">
+                ({getRelativeTime(parsedDate, t)})
+              </span>
+            </>
+          ) : (
+            <span className="text-sm text-muted">{t('noContactRecorded')}</span>
+          )}
+        </p>
+        <button
+          type="button"
+          title={t('updateToToday')}
+          onClick={handleContactedToday}
+          disabled={isLoading}
+          className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full border border-border text-muted hover:text-primary hover:border-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isLoading ? (
+            <svg className="w-3.5 h-3.5 animate-spin" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+            </svg>
+          ) : (
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <rect x="3" y="4" width="18" height="18" rx="2" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 2v4M8 2v4M3 10h18" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 16l2 2 4-4" />
+            </svg>
+          )}
+          {t('updateToToday')}
+        </button>
+      </div>
       {contactReminderDescription && (
         <div className="text-xs text-primary mt-1 flex items-center gap-1">
           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
