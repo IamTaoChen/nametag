@@ -13,9 +13,8 @@ import LastContactQuickUpdate from '@/components/LastContactQuickUpdate';
 import { formatDate, formatDateWithoutYear, parseAsLocalDate, type DateFormat } from '@/lib/date-format';
 import { formatFullName, formatGraphName } from '@/lib/nameUtils';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
-import PersonPhoto from '@/components/PersonPhoto';
+import PersonAvatar from '@/components/PersonPhoto';
 import { getTranslations } from 'next-intl/server';
-import { getPhotoUrl } from '@/lib/photo-url';
 
 function isSafeUrl(url: string): boolean {
   try {
@@ -339,12 +338,15 @@ export default async function PersonDetailsPage({
 
             <div className="px-6 py-5 space-y-6">
               {/* Photo */}
-              {person.photo && getPhotoUrl(person.id, person.photo) && (
+              {person.photo && (
                 <div className="border border-border rounded-lg p-4">
                   <div className="flex justify-center">
-                    <PersonPhoto
-                      src={getPhotoUrl(person.id, person.photo)!}
+                    <PersonAvatar
+                      personId={person.id}
                       name={formatFullName(person)}
+                      photo={person.photo}
+                      size={128}
+                      loading="eager"
                     />
                   </div>
                 </div>
