@@ -73,14 +73,36 @@ export const POST = withLogging(async function POST(request: Request) {
         },
       });
 
+      // Count contacts per address book in parallel using lightweight PROPFIND
+      // (requests only getetag, no vCard data downloaded)
+      const addressBooksWithCounts = await Promise.all(
+        addressBooks.map(async (ab) => {
+          const absoluteUrl = /^https?:\/\//i.test(ab.url) ? ab.url : new URL(ab.url, serverUrl).href;
+          let contactCount: number | null = null;
+          try {
+            const resources = await client.propfind({
+              url: absoluteUrl,
+              props: { 'd:getetag': {} },
+              depth: '1',
+            });
+            // First response is the collection itself; the rest are vCard resources
+            contactCount = Math.max(0, resources.length - 1);
+          } catch (err) {
+            log.warn({ err: err instanceof Error ? err : new Error(String(err)), url: absoluteUrl }, 'Failed to count contacts in address book');
+          }
+          return {
+            url: absoluteUrl,
+            displayName: typeof ab.displayName === 'string' ? ab.displayName : null,
+            description: ab.description || null,
+            contactCount,
+          };
+        })
+      );
+
       return NextResponse.json({
         success: true,
         message: 'Connection successful',
-        addressBooks: addressBooks.map((ab) => ({
-          url: /^https?:\/\//i.test(ab.url) ? ab.url : new URL(ab.url, serverUrl).href,
-          displayName: typeof ab.displayName === 'string' ? ab.displayName : null,
-          description: ab.description || null,
-        })),
+        addressBooks: addressBooksWithCounts,
       });
     } catch (error) {
       log.error({ err: error instanceof Error ? error : new Error(String(error)) }, 'CardDAV connection test failed');

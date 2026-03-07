@@ -9,6 +9,7 @@ export interface AddressBookOption {
   url: string;
   displayName: string | null;
   description: string | null;
+  contactCount: number | null;
 }
 
 interface Step2AddressBookSelectProps {
@@ -78,9 +79,16 @@ export default function Step2AddressBookSelect({
               className="mt-1 h-4 w-4 text-primary focus:ring-primary"
             />
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-foreground">
-                {book.displayName || tw('addressBookNoName')}
-              </p>
+              <div className="flex items-center gap-2">
+                <p className="text-sm font-medium text-foreground">
+                  {book.displayName || tw('addressBookNoName')}
+                </p>
+                {book.contactCount !== null && (
+                  <span className="text-xs text-muted">
+                    {tw('contactCount', { count: book.contactCount })}
+                  </span>
+                )}
+              </div>
               <p className="text-xs text-muted mt-0.5 truncate">
                 {book.description || tw('addressBookNoDescription')}
               </p>

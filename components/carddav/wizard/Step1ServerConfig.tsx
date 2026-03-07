@@ -15,7 +15,7 @@ export interface WizardData {
   syncEnabled: boolean;
   addressBookUrl: string | null;
   addressBookName: string | null;
-  addressBooks: Array<{ url: string; displayName: string | null; description: string | null }>;
+  addressBooks: Array<{ url: string; displayName: string | null; description: string | null; contactCount: number | null }>;
 }
 
 interface Step1ServerConfigProps {

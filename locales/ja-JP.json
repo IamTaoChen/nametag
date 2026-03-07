@@ -371,6 +371,7 @@
         "step2abDescription": "CardDAVサーバーに複数のアドレス帳があります。Nametagと同期するアドレス帳を選択してください。",
         "addressBookNoName": "名前のないアドレス帳",
         "addressBookNoDescription": "説明はありません",
+        "contactCount": "{count, plural, other {#件の連絡先}}",
         "next": "次へ",
         "back": "戻る",
         "backupWarningTitle": "重要：まず連絡先をバックアップしてください",

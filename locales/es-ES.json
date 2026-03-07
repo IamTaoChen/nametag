@@ -371,6 +371,7 @@
         "step2abDescription": "Tu servidor CardDAV tiene varias libretas de contactos. Selecciona con cuál debe sincronizar Nametag.",
         "addressBookNoName": "Libreta sin nombre",
         "addressBookNoDescription": "Sin descripción disponible",
+        "contactCount": "{count, plural, =1 {1 contacto} other {# contactos}}",
         "next": "Siguiente",
         "back": "Atrás",
         "backupWarningTitle": "Importante: Respalda tus contactos primero",
