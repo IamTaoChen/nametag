@@ -55,6 +55,10 @@ describe('search', () => {
     it('should return true for empty query', () => {
       expect(matchesSearch('anything', '')).toBe(true);
     });
+
+    it('should return false for empty text with non-empty query', () => {
+      expect(matchesSearch('', 'query')).toBe(false);
+    });
   });
 
   describe('filterPeople', () => {

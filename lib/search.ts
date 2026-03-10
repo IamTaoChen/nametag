@@ -1,6 +1,10 @@
 /**
  * Normalize a string for search comparison.
  * Strips diacritical marks (accents) and lowercases.
+ *
+ * Note: ligatures (æ, œ) and digraph characters (ß) are not decomposed.
+ * "strasse" will NOT match "Straße". This is an acceptable trade-off for
+ * a pure-JS, dependency-free implementation.
  */
 export function normalizeForSearch(text: string): string {
   if (!text) return '';
