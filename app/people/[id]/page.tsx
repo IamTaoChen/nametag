@@ -11,7 +11,7 @@ import PersonVCardRawView from '@/components/PersonVCardRawView';
 import PersonActionsMenu from '@/components/PersonActionsMenu';
 import LastContactQuickUpdate from '@/components/LastContactQuickUpdate';
 import { formatDate, formatDateWithoutYear, parseAsLocalDate, type DateFormat } from '@/lib/date-format';
-import { formatFullName, formatGraphName } from '@/lib/nameUtils';
+import { formatPersonName, formatFullName, formatGraphName } from '@/lib/nameUtils';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import PersonAvatar from '@/components/PersonPhoto';
 import { getTranslations } from 'next-intl/server';
@@ -266,7 +266,7 @@ export default async function PersonDetailsPage({
             <div className="px-6 py-5 border-b border-border flex flex-col sm:flex-row justify-between items-start gap-4">
               <div className="flex-1 min-w-0">
                 <h1 className="text-2xl sm:text-3xl font-bold text-foreground break-words">
-                  {formatFullName(person)}
+                  {formatPersonName(person)}
                 </h1>
                 {person.groups.length > 0 && (
                   <div className="flex flex-wrap gap-2 mt-2">

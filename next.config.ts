@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
   // Expose selected non-sensitive runtime configuration to client bundles.
   env: {
     FULLNAME_FORMAT: process.env.FULLNAME_FORMAT ?? '',
+    PERSON_FORMAT: process.env.PERSON_FORMAT ?? '',
     GRAPHNAME_FORMAT: process.env.GRAPHNAME_FORMAT ?? '',
   },
 

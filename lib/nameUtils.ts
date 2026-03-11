@@ -1,3 +1,10 @@
+type PersonNames = {
+  name: string;
+  surname?: string | null;
+  middleName?: string | null;
+  secondLastName?: string | null;
+  nickname?: string | null;
+};
 /**
  * Formats a person's name with optional nickname and all name parts
  * Format: "Name 'Nickname' MiddleName Surname SecondLastName"
@@ -8,40 +15,35 @@
  * - "Matias Alejandro Godoy Biedma" (with middle name and second last name)
  */
 export function formatPersonName(
-  name: string,
-  surname?: string | null,
-  middleName?: string | null,
-  secondLastName?: string | null,
-  nickname?: string | null,
+  person: PersonNames,
   nameFormat?: string | null,
 ): string {
-  const parts: string[] = [name];
-
-  if (nickname) {
-    parts.push(`'${nickname}'`);
-  }
-
-  if (middleName) {
-    parts.push(middleName);
-  }
-
-  if (surname) {
-    parts.push(surname);
-  }
-
-  if (secondLastName) {
-    parts.push(secondLastName);
-  }
-  if (nameFormat) {
-    return nameFormat
-      .replaceAll('{name}', name)
-      .replaceAll('{nickname}', nickname || '')
-      .replaceAll('{middleName}', middleName || '')
-      .replaceAll('{surname}', surname || '')
-      .replaceAll('{secondLastName}', secondLastName || '')
+  const formatToUse = nameFormat ?? getGlobalPersonFormat();
+  if (formatToUse) {
+    return formatToUse
+      .replaceAll('{name}', person.name)
+      .replaceAll('{nickname}', person.nickname || '')
+      .replaceAll('{middleName}', person.middleName || '')
+      .replaceAll('{surname}', person.surname || '')
+      .replaceAll('{secondLastName}', person.secondLastName || '')
       .replace(/\s+/g, ' ')
       .trim();
   }
+
+  const parts: string[] = [person.name];
+  if (person.nickname) {
+    parts.push(`'${person.nickname}'`);
+  }
+  if (person.middleName) {
+    parts.push(person.middleName);
+  }
+  if (person.surname) {
+    parts.push(person.surname);
+  }
+  if (person.secondLastName) {
+    parts.push(person.secondLastName);
+  }
+
   return parts.join(' ');
 }
 
@@ -49,7 +51,7 @@ export function formatPersonName(
  * Formats a person's full name for display
  * Same as formatPersonName but with a person object
  */
-function getGlobalNameFormat(): string | null {
+function getGlobalFullnameFormat(): string | null {
   // In Next.js client bundles, this value is injected from next.config.ts env.
   return process.env.FULLNAME_FORMAT || null;
 }
@@ -60,21 +62,22 @@ function getGlobalGraphNameFormat(): string | null {
   return format && format.trim() ? format : null;
 }
 
-export function formatFullName(person: {
-  name: string;
-  surname?: string | null;
-  middleName?: string | null;
-  secondLastName?: string | null;
-  nickname?: string | null;
-  nameFormat?: string | null;
-}): string {
+function getGlobalPersonFormat(): string | null {
+  // In Next.js client bundles, this value is injected from next.config.ts env.
+  const format = process.env.PERSON_FORMAT;
+  if (format && format.trim()) {
+    return format;
+  }
+  return null;
+}
+
+export function formatFullName(
+  person: PersonNames & { nameFormat?: string | null },
+  nameFormat?: string | null,
+): string {
   return formatPersonName(
-    person.name,
-    person.surname,
-    person.middleName,
-    person.secondLastName,
-    person.nickname,
-    person.nameFormat ?? getGlobalNameFormat(),
+    person,
+    nameFormat ?? person.nameFormat ?? getGlobalFullnameFormat(),
   );
 }
 

@@ -162,6 +162,10 @@ CRON_SECRET=your-cron-secret-minimum-16-characters
 # Available placeholders: {name}, {nickname}, {middleName}, {surname}, {secondLastName}
 # FULLNAME_FORMAT={name} '{nickname}' {middleName} {surname} {secondLastName}
 
+# Optional: global person name display format (preferred over FULLNAME_FORMAT)
+# Available placeholders: {name}, {nickname}, {middleName}, {surname}, {secondLastName}
+# PERSON_FORMAT={name} '{nickname}' {middleName} {surname} {secondLastName}
+
 # Optional: global network graph name display format
 # Available placeholders: {name}, {surname}, {nickname}
 # GRAPHNAME_FORMAT={surname}, {nickname}
@@ -229,6 +233,7 @@ The database will be automatically set up on first run.
 | `SMTP_REQUIRE_TLS`     | Require STARTTLS for security                                         | `true`                       |
 | `SMTP_FROM`            | Override "from" address (use if server rejects custom addresses)      | Not set                      |
 | `FULLNAME_FORMAT`      | Global format for full name display using placeholders                | Not set                      |
+| `PERSON_FORMAT`        | Global person name format (overrides FULLNAME_FORMAT when set)        | Not set                      |
 | `GRAPHNAME_FORMAT`     | Global format for network graph labels using placeholders             | Not set                      |
 | `PHOTO_STORAGE_PATH`   | Custom path for photo storage                                         | `/app/data/photos`           |
 | `DISABLE_REGISTRATION` | Disable user registration after first user                            | `false`                      |

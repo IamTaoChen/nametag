@@ -62,6 +62,10 @@ const envSchema = z.object({
   // Available placeholders: {name}, {nickname}, {middleName}, {surname}, {secondLastName}
   FULLNAME_FORMAT: z.string().min(1).optional(),
 
+  // Global person name format (preferred over FULLNAME_FORMAT)
+  // Available placeholders: {name}, {nickname}, {middleName}, {surname}, {secondLastName}
+  PERSON_FORMAT: z.string().optional(),
+
   // Global network graph name format
   // Available placeholders: {name}, {surname}, {nickname}
   // Empty value falls back to default graph naming logic
