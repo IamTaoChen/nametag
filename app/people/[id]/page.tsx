@@ -315,6 +315,7 @@ export default async function PersonDetailsPage({
                   personName={formatFullName(person)}
                   person={serializedPerson}
                   hasCardDavSync={!!cardDavConnection && !!person.cardDavMapping}
+                  allPeople={allPeople}
                 />
               </div>
             </div>
